@@ -12,7 +12,7 @@ public class MyJScrollPane extends JScrollPane {
         this.getVerticalScrollBar().setUI(new DemoScrollBarUI());
         this.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         this.setPreferredSize(dimension);
-        this.setBorder(new EmptyBorder(0, 0, 0, 0));
+        this.setBorder(BorderFactory.createRaisedBevelBorder());
         this.setOpaque(false);
         this.getViewport().setOpaque(false);
     }

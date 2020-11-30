@@ -132,6 +132,7 @@ public class Main extends JFrame {
     static JButton addJButton = new MyButton("添加", npFont, new Dimension(120, 165), black, gray, e -> {
     });
     static JButton updateJButton = new MyButton("更新", npFont, new Dimension(120, 163), black, gray, e -> {
+
     });
 
 
@@ -154,7 +155,7 @@ public class Main extends JFrame {
     });
 
     // 省份图片
-    static JLabel imageJLabel = new MyLabel(new Dimension(579, 435));
+    static JLabel imageJLabel = new MyLabel(new Dimension(580, 435));
     // 详情区
     static JTextArea detailJTextArea = new JTextArea();
     static JScrollPane detailJscrollPane = new MyJScrollPane(detailJTextArea, new Dimension(580, 260));
@@ -257,6 +258,7 @@ public class Main extends JFrame {
             add(backColorJLabel);
             add(componentColorJLabel);
             add(themeJButton);
+            add(detailJTextArea);
         }
     };
 
@@ -333,37 +335,14 @@ public class Main extends JFrame {
 //                img.paintIcon(this, g, 0, 0);
 //            }
         };
-
-
-
-
-
-        /*
-        背景设置
-         */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //contentPanel.setOpaque(false);
         setContentPane(contentPanel);
         contentPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         leftJpanel1.add(titleJButton);
 
+
         imageJLabel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         imageJLabel.setIcon(provinceImageIcon);
-        imageJLabel.setBorder(null);
+        imageJLabel.setBorder(BorderFactory.createRaisedBevelBorder());
         imageJLabel.add(previousJButton);
         imageJLabel.add(nextJButton);
         leftJpanel1.add(imageJLabel);
@@ -519,7 +498,6 @@ public class Main extends JFrame {
                     if (files != null) {
                         fileList = Arrays.asList(files);
                         switch_picture(2);
-                        //update_color(colors.get(record.getProvince()));
                         current_province = record.getProvince();
                         current_city = record.getCity();
                         current_record = "record";
@@ -604,6 +582,7 @@ public class Main extends JFrame {
         update_records();
         update_province();
         update_cities();
+        // update_color(new Color(77,87,91),new Color(92,130,149),new Color(28,31,39));
         this.setVisible(true);
     }
 
@@ -729,92 +708,7 @@ public class Main extends JFrame {
         }
         return "";
     }
-
-    //    // 添加按钮功能
-//    public static void update_movie() {
-//        if (!addNameJTextField.getText().equals("")) {
-//            String name = addNameJTextField.getText();
-//            JDBCHelper jdbcHelper = JDBCHelper.getInstance();
-//
-//            // 先查询一下当前有没有该电影 如果有 那么就是更新 没有就是添加
-//            StringBuilder sql = new StringBuilder("select * from movies where name like " + "'%" + name + "%'");
-//            int count = jdbcHelper.executeQuery(sql.toString(), rs -> {
-//                List<Map<String, Object>> result = new ArrayList<>();
-//                ResultSetMetaData md = rs.getMetaData();
-//                int columnCount = md.getColumnCount();
-//                while (rs.next()) {
-//                    Map<String, Object> rowData = new HashMap<>();
-//                    for (int i = 1; i <= columnCount; i++) {
-//                        rowData.put(md.getColumnName(i), rs.getObject(i));
-//                    }
-//                    result.add(rowData);
-//                }
-//                return result;
-//            }).size();
-//            if (count > 0) {
-//                ArrayList<String> attrs = new ArrayList<>();
-//                ArrayList<String> values = new ArrayList<>();
-//                for (int i = 0; i < jTextFields.length; i++) {
-//                    if (!jTextFields[i].getText().equals("")) {
-//                        if (i == 1) {
-//                            // 日期校验
-//                            try {
-//                                releaseDate = new SimpleDateFormat("yyyy-MM-dd").parse(addDateJTextField.getText());
-//                            } catch (ParseException e) {
-//                                jTextFields[i].setText("日期格式不正确,1999-03-14");
-//                                return;
-//                            }
-//                            Calendar calendar = Calendar.getInstance();
-//                            calendar.setTime(releaseDate);
-//                            attrs.add(origin_attrs[i]);
-//                            values.add("\"" + jTextFields[i].getText() + "\"");
-//                        } else if (i == 2) {
-//                            // 评分
-//                            if (Double.parseDouble(addScoreJTextField.getText()) > 10 || Double.parseDouble(addScoreJTextField.getText()) <= 0) {
-//                                jTextFields[i].setText("评分不能大于10分或者小于等于0分");
-//                                return;
-//                            } else {
-//                                attrs.add(origin_attrs[i]);
-//                                values.add(jTextFields[i].getText());
-//                            }
-//                        } else if (i == 3) {
-//                            // 类型
-//                            attrs.add(origin_attrs[i]);
-//                            values.add("'" + jTextFields[i].getText() + "'");
-//                        } else if (i == 5) {
-//                            // 简介 去掉 "
-//                            attrs.add(origin_attrs[i]);
-//                            values.add("\"" + jTextFields[i].getText().replace("\"", "'") + "\"");
-//                        } else {
-//                            // 其他情况
-//                            attrs.add(origin_attrs[i]);
-//                            values.add("\"" + jTextFields[i].getText() + "\"");
-//                            values.add("\"" + jTextFields[i].getText() + "\"");
-//                        }
-//                    }
-//                }
-//                sql = new StringBuilder("update movies set ");
-//
-//                for (int i = 0; i < attrs.size(); i++) {
-//                    sql.append(attrs.get(i)).append("=").append(values.get(i));
-//                    if (i != attrs.size() - 1) {
-//                        sql.append(",");
-//                    }
-//                }
-//                sql.append(" where name like " + "'%").append(name).append("%'");
-//                jdbcHelper.executeInsert(sql.toString());
-//                update_movies();
-//                addNameJTextField.setText("");
-//                for (JTextField jTextField : jTextFields) {
-//                    jTextField.setText("");
-//                }
-//            } else {
-//                tipJTextField.setText("当前未收录该电影");
-//            }
-//
-//        }
-//    }
-//
+    
     public static void rebuild() {
         switch (current_page) {
             case 1:
@@ -899,7 +793,7 @@ public class Main extends JFrame {
         JTableHeader jTableHeader = citiesJTable.getTableHeader();
         // 设置表头名称字体样式
         jTableHeader.setResizingAllowed(false);
-        jTableHeader.setResizingAllowed(false);
+        jTableHeader.setReorderingAllowed(false);
         jTableHeader.setFont(new Font("微软雅黑", Font.BOLD, 19));
         jTableHeader.setForeground(black);
         jTableHeader.setBackground(gray);
